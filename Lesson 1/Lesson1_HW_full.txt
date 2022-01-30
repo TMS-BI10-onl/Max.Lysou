@@ -1,0 +1,5 @@
+Task 3
+Created date of the table AdventureWorks2017.Person.Person is 21/10/2017 14:30
+
+Task 4
+Data space of the table AdventureWorksDW2017.dbo.DimPromotion is 8388.61 b (0.008 Mb)
