@@ -1,0 +1,12 @@
+Well done!
+
+B -0.75
+Educational number IS a PK.
+So, why you're adding student_id?
+Also, we can leave name undivided.
+
+F -0.5
+We're deleting calculated fileds when moving to the 3nf.
+
+
+Mark: 9
