@@ -1,0 +1,414 @@
+/*
+ссылка на резервную копию БД второй группы TMSGroup2_v2.bak
+https://drive.google.com/file/d/1nU9tWiFbIDGl6LFP24HVCThtkwmpsakD/view?usp=sharing
+*/
+
+
+
+
+
+
+
+--table [TMSGroup2].[dbo].[ClientsDim]
+--исходные таблицы созданы в https://mockaroo.com/
+
+CREATE TABLE ClientsTest
+(
+	[IDClient] INT IDENTITY(1,1)
+	,[IdentificationNumber] uniqueidentifier NOT NULL DEFAULT newid()
+	,[FirstName] NVARCHAR (50) NOT NULL
+	,[LastName] NVARCHAR (50) NOT NULL
+	,[BirthDate] DATE
+	,[Gender] NVARCHAR (10)
+	,[Phone] NVARCHAR (20)
+	,[Email] AS ((LOWER(FirstName)) + LOWER(LastName) + (IIF(BirthDate>'1980.01.01', '@gmail.com', '@hotmail.com')))
+)
+
+INSERT INTO ClientsTest ([FirstName], [LastName], [Gender], [BirthDate]) 
+SELECT TOP 100000
+	 p.[first_name]
+	 ,pp. [last_name]
+	 ,p.[gender]
+	 ,pp. [BirthDate]
+FROM [dbo].[PeoplePart1] p
+CROSS JOIN 
+[dbo].[PeoplePart2] pp
+
+
+CREATE TABLE [Phone]
+(ID INT IDENTITY, [Phone] NVARCHAR (50))
+
+INSERT INTO [Phone]
+SELECT top 100000 concat(k.[column1], '-', n. [column2], '-', n.[column3])
+FROM [dbo].[PhoneKod] k
+cross join [dbo].[PhoneNumber] n
+
+
+INSERT INTO Clients 
+( 
+	IdentificationNumber, 
+	[FirstName], 
+	[LastName], 
+	[BirthDate], 
+	[Gender],
+	[Phone], 
+	[Email]
+	)
+SELECT  
+	LEFT([IdentificationNumber],13) AS IdentificationNumber, 
+	c.[FirstName], 
+	c.[LastName], 
+	c.[BirthDate], 
+	c.[Gender],
+	p.[Phone], 
+	c.[Email]
+FROM [dbo].[ClientsTest] c
+JOIN [dbo].[Phone] p
+ON c.IDClient=p.ID
+ORDER BY [IdentificationNumber]
+
+
+
+INSERT INTO [TMSGroup2].[dbo].[ClientsDim]
+OUTPUT
+	[inserted].[IdentificationNumber],
+	[inserted].[FirstName],
+	[inserted].[LastName],
+	[inserted].[BirthDate],
+	[inserted].[Gender],
+	[inserted].[Phone],
+	[inserted].[Email]
+SELECT
+	[IdentificationNumber],
+	[FirstName],
+	[LastName],
+	[BirthDate],
+	[Gender],
+	[Phone],
+	[Email]
+FROM [Clients].[dbo].[Clients]
+;
+
+
+
+
+
+--table [TMSGroup2].[dbo].[ManagersDim]
+--исходные таблицы созданы в https://mockaroo.com/
+
+INSERT INTO [TMSGroup2].[dbo].[ManagersDim]
+OUTPUT
+	[inserted].[FirstName],
+	[inserted].[LastName],
+	[inserted].[Position],
+	[inserted].[Phone],
+	[inserted].[Email]
+SELECT
+	[First_Name],
+	[Last_Name],
+	[Position],
+	[Phone],
+	[Email]
+FROM [TEST].[dbo].[Managers_dim_test2]
+
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'ProductManager'
+   where [Position] like 'Account%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'AssistentManager'
+   where [Position] like 'Teacher%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'JuniorManager'
+   where [Position] like 'Human%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'MiddleManager'
+   where [Position] like 'Geologist%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'SeniorManager'
+   where [Position] like 'Web%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'LeadManager'
+   where [Position] like 'Soft%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'PreSaleManager'
+   where [Position] like 'System%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'CallManager'
+   where [Position] like '%Engineer%'
+ 
+ update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'ProductManager'
+   where [Position] like '%Program%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'ProductManager'
+   where [Position] like '%Biostatistician%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'JuniorManager'
+   where [Position] like '%Developer%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'JuniorManager'
+   where [Position] like '%Health%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'JuniorManager'
+   where [Position] like '%Nurse%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'JuniorManager'
+   where [Position] like '%Food Chemist%'
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'JuniorManager'
+   where [Position] like '%Research%'
+  
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'TourismManager'
+   where [Position] in( 
+   'Actuary',
+   'Administrative Assistant I',
+   'Administrative Assistant II',
+   'Administrative Assistant III',
+   ' Administrative Assistant IV',
+   'Administrative Officer',
+   'Analog Circuit Design manager',
+	'Assistant Professor',
+	'Associate Professor')
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'Assistant Tourism Manager'
+   where [Position] in( 
+   'Administrative Assistant IV',
+   'Budget/Accounting Analyst I',
+   'Budget/Accounting Analyst II',
+   'Budget/Accounting Analyst III',
+   'Budget/Accounting Analyst IV',
+   'Administrative Officer',
+   'Community Outreach Specialist',
+'Compensation Analyst',
+'Database Administrator II',
+'Database Administrator III',
+'Database Administrator IV')
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'Lead Tourism Specialist'
+   where [Position] in(  
+
+ 'Assistant Media Planner',
+'Business Systems Development Analyst',
+'Computer Systems Analyst II',
+'Computer Systems Analyst III',
+'Computer Systems Analyst IV',
+'Cost Accountant',
+'Data Coordiator',
+'Desktop Support Technician',
+'Editor',
+'Environmental Specialist',
+'Environmental Tech',
+'Executive Secretary',
+'Financial Advisor',
+'Financial Analyst',
+'GIS Technical Architect',
+'Help Desk Operator',
+'Help Desk Technician',
+'Internal Auditor',
+'Junior Executive',
+'Media Manager II',
+'Media Manager III',
+'Media Manager IV',
+'Occupational Therapist',
+'Office Assistant I',
+'Office Assistant II',
+'Office Assistant III',
+'Office Assistant IV',
+'Paralegal',
+'Payment Adjustment Coordinator',
+'Pharmacist')
+
+update [TMSGroup2].[dbo].[ManagersDim]
+   set [Position] = 'VIP Travel Agent'
+   where [Position] in(  
+
+ 'Physical Therapy Assistant',
+'Professor',
+'Project Manager',
+'Recruiter',
+'Recruiting Manager',
+'Safety Technician II',
+'Safety Technician III',
+'Senior Cost Accountant',
+'Senior Editor',
+'Senior Financial Analyst',
+'Social Worker',
+'Speech Pathologist',
+'Staff Accountant I',
+'Staff Accountant II',
+'Staff Accountant III',
+'Staff Accountant IV',
+'Staff Scientist',
+'Statistician I',
+'Statistician II',
+'Statistician III',
+'Statistician IV',
+'Tax Accountant',
+'VP Accounting',
+'VP Quality Control')
+
+
+
+
+
+
+
+--table [TMSGroup2].[dbo].[OfficesDim]
+--исходные таблицы созданы в https://mockaroo.com/
+
+
+INSERT INTO [TMSGroup2].[dbo].[OfficesDim]
+OUTPUT
+	[inserted].[Country],
+	[inserted].[City],
+	[inserted].[Address]
+SELECT
+	[column3],
+	[column1],
+	[column2]
+FROM [TEST].[dbo].[Offices]
+;
+
+
+
+
+
+
+--table [TMSGroup2].[dbo].[ToursDim]
+--исходные таблицы созданы в https://mockaroo.com/
+
+INSERT INTO [TMSGroup2].[dbo].[ToursDim]
+OUTPUT
+	[inserted].[TourType],
+	[inserted].[HotelName],
+	[inserted].[HotelRating],
+	[inserted].[Country],
+	[inserted].[City],
+	[inserted].[Address],
+	[inserted].[CateringType],
+	[inserted].[Transfer],
+	[inserted].[MaxQuantity],
+	[inserted].[TransportType],
+	[inserted].[TransportCLass]
+SELECT
+	[TourType],
+	[HotelName],
+	[HotelRating],
+	[Country],
+	[City],
+	[Address],
+	[CateringType],
+	[Transfer],
+	[MaxQuantity],
+	[TransportType],
+	[TransportCLass]
+FROM [TEST].[dbo].[Tours_inf]
+UNION ALL
+SELECT
+	[TourType],
+	[HotelName],
+	[HotelRating],
+	[Country],
+	[City],
+	[Address],
+	[CateringType],
+	[Transfer],
+	[MaxQuantity],
+	[TransportType],
+	[TransportCLass]
+FROM [TEST].[dbo].[Tour_inf2]
+;
+
+
+
+
+--table [TMSGroup2].[DBO].[SalesFct]
+with randowvalues
+	as( 
+	select 
+		1 [IDSale],
+		NEWID() as [NewID],
+		CHAR(CAST(RAND(CHECKSUM(NEWID()))*25 as int) +65) as [ContractNumber_p1],
+		CHAR(CAST(RAND(CHECKSUM(NEWID()))*25 as int) +65) as [ContractNumber_p2],
+		CHAR(CAST(RAND(CHECKSUM(NEWID()))*25 as int) +65) as [ContractNumber_p3],
+		CAST(RAND(CHECKSUM(NEWID()))*8999999999 as bigint) +1000000000 as [ContractNumber_p4],
+		DATEADD(DAY,CAST(RAND(CHECKSUM(NEWID()))*1826 as int) +0,'2017-01-01') as [DataSales],
+		CAST(RAND(CHECKSUM(NEWID()))*998 as int) +1 as [IDManager],
+		CAST(RAND(CHECKSUM(NEWID()))*1098 as int) +1 as [IDTour],
+		CAST(RAND(CHECKSUM(NEWID()))*99999 as int) +1 as [IDClient],
+		CAST(RAND(CHECKSUM(NEWID()))*48 as int) +1 as [IDOffice],
+		CAST(RAND(CHECKSUM(NEWID()))*9000 as real) +1000 as [Costs],
+		CAST(RAND(CHECKSUM(NEWID()))*1 as real) +0 as [SellingPrice_],
+		CAST(RAND(CHECKSUM(NEWID()))*1 as real) +0 as [DiscountRate],
+		CAST(RAND(CHECKSUM(NEWID()))*9 as int) +1 as [TourCapacity],
+		CAST(RAND(CHECKSUM(NEWID()))*365 as int) +0 as [TourStartDate_],
+		CAST(RAND(CHECKSUM(NEWID()))*30 as int) +3 as [TourFinishDate_]
+
+	union  all
+	select 
+		[IDSale] + 1,
+		NEWID() as [NewID],
+		CHAR(CAST(RAND(CHECKSUM(NEWID()))*25 as int) +65) as [ContractNumber_p1],
+		CHAR(CAST(RAND(CHECKSUM(NEWID()))*25 as int) +65) as [ContractNumber_p2],
+		CHAR(CAST(RAND(CHECKSUM(NEWID()))*25 as int) +65) as [ContractNumber_p3],
+		CAST(RAND(CHECKSUM(NEWID()))*8999999999 as bigint) +1000000000 as [ContractNumber_p4],
+		DATEADD(DAY,CAST(RAND(CHECKSUM(NEWID()))*1826 as int) +0,'2017-01-01') as [DataSales],
+		CAST(RAND(CHECKSUM(NEWID()))*998 as int) +1 as [IDManager],
+		CAST(RAND(CHECKSUM(NEWID()))*1098 as int) +1 as [IDTour],
+		CAST(RAND(CHECKSUM(NEWID()))*99999 as int) +1 as [IDClient],
+		CAST(RAND(CHECKSUM(NEWID()))*48 as int) +1 as [IDOffice],
+		CAST(RAND(CHECKSUM(NEWID()))*9000 as real) +1000 as [Costs],
+		CAST(RAND(CHECKSUM(NEWID()))*1 as real) +0 as [SellingPrice_],
+		CAST(RAND(CHECKSUM(NEWID()))*1 as real) +0 as [DiscountRate],
+		CAST(RAND(CHECKSUM(NEWID()))*9 as int) +1 as [TourCapacity],
+		CAST(RAND(CHECKSUM(NEWID()))*365 as int) +0 as [TourStartDate_],
+		CAST(RAND(CHECKSUM(NEWID()))*30 as int) +3 as [TourFinishDate_]
+	from randowvalues
+	where [IDSale] < 1000000
+	)
+	INSERT INTO [TMSGroup2].[DBO].[SalesFct]
+	OUTPUT 
+		[INSERTED].[ContractNumber],
+		[INSERTED].[DataSales],
+		[INSERTED].[IDManager],
+		[INSERTED].[IDTour],
+		[INSERTED].[IDClient],
+		[INSERTED].[IDOffice],
+		[INSERTED].[Costs],
+		[INSERTED].[SellingPrice],
+		[INSERTED].[DiscountRate],
+		[INSERTED].[TourCapacity],	
+		[INSERTED].[TourStartDate],
+		[INSERTED].[TourFinishDate]
+	SELECT
+		CONCAT([ContractNumber_p1],[ContractNumber_p2],[ContractNumber_p3],'-',[ContractNumber_p4]) AS [ContractNumber],
+		[DataSales],
+		[IDManager],
+		[IDTour],
+		[IDClient],
+		[IDOffice],
+		[Costs],
+		[Costs]*(1+[SellingPrice_]) AS [SellingPrice],
+		[DiscountRate],
+		[TourCapacity],
+		DATEADD(DAY,[TourStartDate_],[DataSales]) AS [TourStartDate],
+		DATEADD(DAY,[TourStartDate_]+[TourFinishDate_],[DataSales]) AS [TourFinishDate]
+    FROM RANDOWVALUES
+    OPTION(MAXRECURSION 0)
