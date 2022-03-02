@@ -1,0 +1,106 @@
+/*
+Напишите скрипт для суммы OrderQty для каждого года и зимних месяцев из Production.WorkOrder в виде транспонированной матрицы:
+*/
+
+
+SELECT [Year], [December], [January], [February]
+FROM
+	(SELECT
+		[OrderQty],
+		DATENAME(MONTH,[DueDate]) AS [Month],
+		YEAR([DueDate]) AS [Year]
+	FROM [AdventureWorks2017].[Production].[WorkOrder]
+	) AS SourceTable
+PIVOT
+	(
+		SUM([OrderQty])
+		FOR [Month] IN ([December], [January], [February])
+	) AS PivotTable
+ORDER BY [Year];
+
+
+
+
+/*
+Задание 4 из проверочной работы.
+Тема 3 Школа.
+*/
+CREATE TABLE [Test].[dbo].[PupilsDim]
+	(
+		[IdPupil],
+		[FirstName],
+		[MiddleName],
+		[LastName],
+		[BirthDate],
+		[Gender],
+		[IdClass],
+		[Address]
+	);
+
+CREATE TABLE [Test].[dbo].[ClassesDim]
+	(
+		[IdClass],
+		[Year],
+		[Letter]
+	);
+
+CREATE TABLE [Test].[dbo].[TeachersDim]
+	(
+		[IdTeacher],
+		[FirstName],
+		[MiddleName],
+		[LastName],
+		[BirthDate],
+		[Gender],
+		[Phone],
+		[Email],
+		[Experience],
+		[Qualification]
+	);
+
+CREATE TABLE [Test].[dbo].[SubjectsDim]
+	(
+		[IdSubject],
+		[Name]
+	);
+
+CREATE TABLE [Test].[dbo].[ClassRoomsDim]
+	(
+		[IdClassRoom],
+		[Name],
+		[Floor],
+		[Status]
+	);
+
+CREATE TABLE [Test].[dbo].[TimeTableFct]
+	(
+	[IdTimeTable],
+	[IdClass],
+	[IdTeacher],
+	[IdSubject],
+	[IdClassRoom],
+	[Date],
+	[TimeStart],
+	[TimeEnd]
+	);
+
+CREATE TABLE [Test].[dbo].[GradeBookFct]
+	(
+	[IdGradeBook],
+	[IdPupil],
+	[IdTeacher],
+	[IdSubject],
+	[IdClassRoom],
+	[DateCreated],
+	[IsAbsent],
+	[Grade],
+	[Remark],
+	[HomeWork]
+	);
+
+
+Задание 1.
+Вывести ФИО лучших по успеваемости учеников для каждой параллели.
+
+Задание 2.
+Вывести ФИО преподавателей с максимальной загрузкой по учебным часам.
