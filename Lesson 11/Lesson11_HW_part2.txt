@@ -1,0 +1,157 @@
+SELECT *
+FROM [Test].[dbo].[data_for_merge];
+GO
+
+DROP TABLE IF EXISTS [Test].[dbo].[target_merge];
+CREATE TABLE [Test].[dbo].[target_merge]
+	(
+	[function_name]		NVARCHAR(50),
+	[function_count]	INT
+	);
+GO
+
+SELECT *
+FROM [Test].[dbo].[target_merge];
+GO
+
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [A] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [B] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [C] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [D] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [E] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [F] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [G] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [H] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT [I] AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source 
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO
+
+SELECT *
+FROM [Test].[dbo].[target_merge];
+
+
+
+
+
+
+/*
+Пытался сделать процедуру, где в качестве параметра передается название столбца. Никак не получается.
+Есть ли такая возможность? И если да, то как это сделать?
+*/
+DROP TABLE IF EXISTS [Test].[dbo].[target_merge];
+CREATE TABLE [Test].[dbo].[target_merge]
+	(
+	[function_name]		NVARCHAR(50),
+	[function_count]	INT
+	);
+GO
+
+SELECT *
+FROM [Test].[dbo].[target_merge];
+GO
+
+DROP PROCEDURE IF EXISTS ForMerge;
+
+CREATE PROCEDURE ForMerge
+	@col	NVARCHAR(5)
+AS
+MERGE [Test].[dbo].[target_merge] target
+USING 
+	(SELECT @col AS [TargetCol] FROM [Test].[dbo].[data_for_merge]) source
+ON target.[function_name] = source.[TargetCol]
+WHEN MATCHED 
+	THEN UPDATE SET target.[function_count] = target.[function_count] + 1
+WHEN NOT MATCHED BY TARGET AND source.[TargetCol] IS NOT NULL
+	THEN INSERT([function_name],[function_count])
+	VALUES(source.[TargetCol],1);
+GO	
+EXEC ForMerge [A]
+EXEC ForMerge [B]
+EXEC ForMerge [C]
+EXEC ForMerge [D]
+EXEC ForMerge [E]
+EXEC ForMerge [F]
+EXEC ForMerge [G]
+EXEC ForMerge [H]
+EXEC ForMerge [I]
+
+DROP PROCEDURE ForMerge;
