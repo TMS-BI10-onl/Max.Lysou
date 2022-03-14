@@ -1,0 +1,82 @@
+/*
+Task 1
+	⦁ Написать запрос на добавление в таблицу manufacturer нового производителя HP из Америки.
+*/
+
+INSERT INTO [dbo].[manufacturer] ([name],[country_id])
+VALUES ('HP',4);
+-- предполагаем, что поле ID генерируется самостоятельно через identity
+
+
+/*
+Task 2
+	⦁ Написать запрос, благодаря которому возраст пользователя Андрей в таблице user уменьшится в 3 раза.
+*/
+
+UPDATE [dbo].[user]
+SET [age] = [age] / 3
+WHERE [name] = N'Андрей';
+
+
+/*
+Task 3
+	⦁ Найти название продукта с максимальной ценой.
+*/
+
+SELECT TOP 1 WITH TIES
+	[name],
+	[price]
+FROM [dbo].[product]
+ORDER BY [price] DESC;
+
+SELECT
+	[name],
+	[price]
+FROM [dbo].[product]
+WHERE [price] = (SELECT MAX([price]) AS MaxPrice FROM [dbo].[product]);
+
+SELECT
+	[name],
+	[price]
+FROM (SELECT 
+		[name],
+		[price],
+		MAX([price]) OVER () AS MaxPrice 
+	FROM [dbo].[product])
+WHERE [price] = [MaxPrice];
+
+
+/*
+Task 4
+	⦁ Написать запрос на выборку всех пользователей с телефонами, начинающимися на 3 и заканчивающимися на 4, либо с возрастом > 35.
+*/
+
+SELECT
+	U.[name],
+	U.[age],
+	PH.[name]
+FROM [dbo].[user] U
+	join [dbo].[phone] PH
+	ON U.[id] = PH.[user_id]
+WHERE
+	PH.[name] like '+3%4' OR
+--	PH.[name] like '______3%4' OR
+	U.[age] > 35;
+
+
+/*
+Task 5
+	⦁ Найти топ 5 пользователей, кто купил больше всего продуктов.
+*/
+
+SELECT
+	U.[name], 
+	O.[TotalCount]
+FROM [dbo].[user] U
+	join (SELECT 
+			[user_id],
+			count(1) AS TotalCount
+			FROM [dbo].[order]
+			GROUP BY [user_id]) O
+	ON U.[id] = O.[user_id]
+ORDER BY O.[TotalCount] DESC
