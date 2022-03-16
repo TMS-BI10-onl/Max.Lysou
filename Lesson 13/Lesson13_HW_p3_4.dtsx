@@ -1,0 +1,1682 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/16/2022 10:09:10 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-N6J6DE8"
+  DTS:CreatorName="DESKTOP-N6J6DE8\maxly"
+  DTS:DTSID="{ED0C7B85-D20B-4762-BB3E-B2095479E7FF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="8192"
+  DTS:ObjectName="Lesson13_HW_p1_3"
+  DTS:PackageType="5"
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{9687EBB1-6541-44C4-AEE9-44B67B427885}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CA81821E-99FA-420A-ABB6-25A59A8E916C}"
+      DTS:ObjectName="DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-N6J6DE8\SQLEXPRESS;Initial Catalog=TMSGroup2;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{81022326-330D-4C47-AA8B-1C2EA3F89793}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=F:\additional\SSIS\Lesson13_HW_p1_2.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Add 10 new facts to SalesFct (LookUp)"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{4319E311-29B4-4F7F-B362-0354AC7C48C4}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Add 10 new facts to SalesFct (LookUp)"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Источник &quot;Excel&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;1"
+              description="Источник &quot;Excel&quot;"
+              name="10 new facts"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">Лист1$</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставление между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;]"
+                  name="Выход источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[ContractNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ContractNumber]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[ContractNumber]"
+                      name="ContractNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[DataSales]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[DataSales]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[DataSales]"
+                      name="DataSales"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[ManagerEmail]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ManagerEmail]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[ManagerEmail]"
+                      name="ManagerEmail"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TourType]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourType]"
+                      name="TourType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[HotelAddress]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[HotelAddress]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[HotelAddress]"
+                      name="HotelAddress"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[IdentificationNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[IdentificationNumber]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[IdentificationNumber]"
+                      name="IdentificationNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[OfficeAddress]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[OfficeAddress]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[OfficeAddress]"
+                      name="OfficeAddress"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[Costs]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[Costs]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[Costs]"
+                      name="Costs"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[SellingPrice]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[SellingPrice]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[SellingPrice]"
+                      name="SellingPrice"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[DiscountRate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[DiscountRate]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[DiscountRate]"
+                      name="DiscountRate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourCapacity]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TourCapacity]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourCapacity]"
+                      name="TourCapacity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourStartDate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TourStartDate]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourStartDate]"
+                      name="TourStartDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourFinishDate]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TourFinishDate]"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourFinishDate]"
+                      name="TourFinishDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ContractNumber]"
+                      dataType="wstr"
+                      length="255"
+                      name="ContractNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[DataSales]"
+                      dataType="wstr"
+                      length="255"
+                      name="DataSales" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[ManagerEmail]"
+                      dataType="wstr"
+                      length="255"
+                      name="ManagerEmail" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TourType]"
+                      dataType="wstr"
+                      length="255"
+                      name="TourType" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[HotelAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="HotelAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[IdentificationNumber]"
+                      dataType="wstr"
+                      length="255"
+                      name="IdentificationNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[OfficeAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="OfficeAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[Costs]"
+                      dataType="wstr"
+                      length="255"
+                      name="Costs" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[SellingPrice]"
+                      dataType="wstr"
+                      length="255"
+                      name="SellingPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[DiscountRate]"
+                      dataType="wstr"
+                      length="255"
+                      name="DiscountRate" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TourCapacity]"
+                      dataType="wstr"
+                      length="255"
+                      name="TourCapacity" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TourStartDate]"
+                      dataType="wstr"
+                      length="255"
+                      name="TourStartDate" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].ExternalColumns[TourFinishDate]"
+                      dataType="wstr"
+                      length="255"
+                      name="TourFinishDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;Excel&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ContractNumber]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ContractNumber]"
+                      name="ContractNumber" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[DataSales]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[DataSales]"
+                      name="DataSales" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ManagerEmail]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ManagerEmail]"
+                      name="ManagerEmail" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TourType]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TourType]"
+                      name="TourType" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[HotelAddress]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[HotelAddress]"
+                      name="HotelAddress" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[IdentificationNumber]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[IdentificationNumber]"
+                      name="IdentificationNumber" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[OfficeAddress]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[OfficeAddress]"
+                      name="OfficeAddress" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[Costs]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[Costs]"
+                      name="Costs" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[SellingPrice]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[SellingPrice]"
+                      name="SellingPrice" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[DiscountRate]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[DiscountRate]"
+                      name="DiscountRate" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TourCapacity]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TourCapacity]"
+                      name="TourCapacity" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TourStartDate]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TourStartDate]"
+                      name="TourStartDate" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TourFinishDate]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[TourFinishDate]"
+                      name="TourFinishDate" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Вывод ошибок источника &quot;Excel&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Назначение &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;4"
+              description="Назначение &quot;OLE DB&quot;"
+              name="Add new facts to SalesFct"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">[dbo].[SalesFct]</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, должны ли значения в столбцах идентификаторов копироваться в назначение. Если свойство имеет значение false, значения в столбцах идентификаторов будут созданы автоматически в месте назначения. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, будут ли в назначение вставляться значения NULL для столбцов, содержащих их. Значение false показывает, что если столбец имеет значение NULL, то в назначение будет вставлено его значение по умолчанию. Применяется только в случае, если включена быстрая загрузка."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Задает параметры быстрой загрузки. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Задает, когда выдаются сообщения о фиксации транзакции в ходе вставки данных. Значение 0 задает, что по окончании вставки данных будет выдано одно сообщение о фиксации транзакции. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;]"
+                  errorOrTruncationOperation="Вставить"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения &quot;OLE DB&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ContractNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ContractNumber"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ContractNumber]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[ContractNumber]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[DataSales]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DataSales"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[DataSales]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[DataSales]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Costs]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Costs"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Costs]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[Costs]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[SellingPrice]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SellingPrice"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SellingPrice]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[SellingPrice]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[DiscountRate]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DiscountRate"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[DiscountRate]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[DiscountRate]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[TourCapacity]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TourCapacity"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[TourCapacity]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourCapacity]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[TourStartDate]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TourStartDate"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[TourStartDate]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourStartDate]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[TourFinishDate]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TourFinishDate"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[TourFinishDate]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourFinishDate]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[IDManager]"
+                      cachedDataType="i4"
+                      cachedName="IDManager"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDManager]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDManager]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[IDTour]"
+                      cachedDataType="i4"
+                      cachedName="IDTour"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDTour]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDTour]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[IDClient]"
+                      cachedDataType="i4"
+                      cachedName="IDClient"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDClient]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDClient]" />
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[IDOffice]"
+                      cachedDataType="i4"
+                      cachedName="IDOffice"
+                      externalMetadataColumnId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDOffice]"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDOffice]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDSale]"
+                      dataType="i4"
+                      name="IDSale" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ContractNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="ContractNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[DataSales]"
+                      dataType="dbDate"
+                      name="DataSales" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDManager]"
+                      dataType="i4"
+                      name="IDManager" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDTour]"
+                      dataType="i4"
+                      name="IDTour" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDClient]"
+                      dataType="i4"
+                      name="IDClient" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IDOffice]"
+                      dataType="i4"
+                      name="IDOffice" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Costs]"
+                      dataType="cy"
+                      name="Costs" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SellingPrice]"
+                      dataType="cy"
+                      name="SellingPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[DiscountRate]"
+                      dataType="cy"
+                      name="DiscountRate" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[TourCapacity]"
+                      dataType="i4"
+                      name="TourCapacity" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[TourStartDate]"
+                      dataType="dbDate"
+                      name="TourStartDate" />
+                    <externalMetadataColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[TourFinishDate]"
+                      dataType="dbDate"
+                      name="TourFinishDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения &quot;OLE DB&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Уточняющий запрос;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;6"
+              description="Присоединяет дополнительные столбцы к потоку данных путем поиска значений в таблице. Пример: соединение со столбцом &quot;employee id&quot; таблицы employees позволяет получить значения &quot;hire date&quot; и &quot;employee name&quot;. Рекомендуется воспользоваться этим преобразованием, если таблица подстановки не помещается в памяти."
+              name="Extract IDClient"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая формирует таблицу уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[ClientsDim]</property>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая использует параметры для формирования таблицы уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[ClientsDim]) [refTable]
+where [refTable].[IdentificationNumber] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип соединения, используемого для доступа к эталонному набору данных."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип кэша таблицы уточняющих запросов."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает, как преобразование &quot;Уточняющий запрос&quot; обрабатывает строки без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает долю кэша (в процентах), выделенную для строк без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Максимальный объем памяти для кэша ссылок на 32-разрядной платформе."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Максимальный объем памяти для кэша ссылок на 64-разрядной платформе."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает, следует ли ссылаться на метаданные в формате XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="IDClient" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IdentificationNumber" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FirstName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LastName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BirthDate" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Gender" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Phone" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Email" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Задает список идентификаторов журнала обращений и преобразований, сопоставляемый с параметрами, которые использует инструкция SQL в свойстве SQLCommand. Элементы списка разделяются точками с запятой."
+                  name="ParameterMap">#{Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника "Excel"].Columns[IdentificationNumber]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Определяет, должны ли повторяющиеся ключи в ссылочных данных обрабатываться как ошибки при использовании режима полного кэширования."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  description="Диспетчер соединений, используемый для доступа к данным уточняющих запросов."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+                  name="Ввод преобразования &quot;Уточняющий запрос&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;].Columns[IdentificationNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="IdentificationNumber"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[IdentificationNumber]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, который соединен с данным столбцом."
+                          name="JoinToReferenceColumn">IdentificationNumber</property>
+                        <property
+                          dataType="System.Null"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+                  errorOrTruncationOperation="Уточняющий запрос"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDClient]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Копировать столбец"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDClient]"
+                      name="IDClient"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn">IDClient</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Выход несовпадающих строк уточняющего запроса]"
+                  description="Вывод преобразования &quot;Уточняющий запрос&quot;, которое обрабатывает строки без совпадающих элементов в эталонном наборе данных. Используйте этот выход, если свойство NoMatchBehavior имеет значение &quot;Отправить строки без совпадающих элементов в выход несовпадающих строк&quot;."
+                  exclusionGroup="1"
+                  name="Выход несовпадающих строк уточняющего запроса"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Уточняющий запрос;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;6"
+              description="Присоединяет дополнительные столбцы к потоку данных путем поиска значений в таблице. Пример: соединение со столбцом &quot;employee id&quot; таблицы employees позволяет получить значения &quot;hire date&quot; и &quot;employee name&quot;. Рекомендуется воспользоваться этим преобразованием, если таблица подстановки не помещается в памяти."
+              name="Extract IDManager"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая формирует таблицу уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[ManagersDim]</property>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая использует параметры для формирования таблицы уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[ManagersDim]) [refTable]
+where [refTable].[Email] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип соединения, используемого для доступа к эталонному набору данных."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип кэша таблицы уточняющих запросов."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает, как преобразование &quot;Уточняющий запрос&quot; обрабатывает строки без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает долю кэша (в процентах), выделенную для строк без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Максимальный объем памяти для кэша ссылок на 32-разрядной платформе."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Максимальный объем памяти для кэша ссылок на 64-разрядной платформе."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает, следует ли ссылаться на метаданные в формате XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="IDManager" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FirstName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LastName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Position" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Phone" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Email" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Задает список идентификаторов журнала обращений и преобразований, сопоставляемый с параметрами, которые использует инструкция SQL в свойстве SQLCommand. Элементы списка разделяются точками с запятой."
+                  name="ParameterMap">#{Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника "Excel"].Columns[ManagerEmail]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Определяет, должны ли повторяющиеся ключи в ссылочных данных обрабатываться как ошибки при использовании режима полного кэширования."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  description="Диспетчер соединений, используемый для доступа к данным уточняющих запросов."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+                  name="Ввод преобразования &quot;Уточняющий запрос&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;].Columns[ManagerEmail]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ManagerEmail"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[ManagerEmail]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, который соединен с данным столбцом."
+                          name="JoinToReferenceColumn">Email</property>
+                        <property
+                          dataType="System.Null"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+                  errorOrTruncationOperation="Уточняющий запрос"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDManager]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Копировать столбец"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDManager]"
+                      name="IDManager"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn">IDManager</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Выход несовпадающих строк уточняющего запроса]"
+                  description="Вывод преобразования &quot;Уточняющий запрос&quot;, которое обрабатывает строки без совпадающих элементов в эталонном наборе данных. Используйте этот выход, если свойство NoMatchBehavior имеет значение &quot;Отправить строки без совпадающих элементов в выход несовпадающих строк&quot;."
+                  exclusionGroup="1"
+                  name="Выход несовпадающих строк уточняющего запроса"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Уточняющий запрос;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;6"
+              description="Присоединяет дополнительные столбцы к потоку данных путем поиска значений в таблице. Пример: соединение со столбцом &quot;employee id&quot; таблицы employees позволяет получить значения &quot;hire date&quot; и &quot;employee name&quot;. Рекомендуется воспользоваться этим преобразованием, если таблица подстановки не помещается в памяти."
+              name="Extract IDOffice"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая формирует таблицу уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[OfficesDim]</property>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая использует параметры для формирования таблицы уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[OfficesDim]) [refTable]
+where [refTable].[Address] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип соединения, используемого для доступа к эталонному набору данных."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип кэша таблицы уточняющих запросов."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает, как преобразование &quot;Уточняющий запрос&quot; обрабатывает строки без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает долю кэша (в процентах), выделенную для строк без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Максимальный объем памяти для кэша ссылок на 32-разрядной платформе."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Максимальный объем памяти для кэша ссылок на 64-разрядной платформе."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает, следует ли ссылаться на метаданные в формате XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="IDOffice" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Address" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Задает список идентификаторов журнала обращений и преобразований, сопоставляемый с параметрами, которые использует инструкция SQL в свойстве SQLCommand. Элементы списка разделяются точками с запятой."
+                  name="ParameterMap">#{Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника "Excel"].Columns[OfficeAddress]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Определяет, должны ли повторяющиеся ключи в ссылочных данных обрабатываться как ошибки при использовании режима полного кэширования."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  description="Диспетчер соединений, используемый для доступа к данным уточняющих запросов."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+                  name="Ввод преобразования &quot;Уточняющий запрос&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;].Columns[OfficeAddress]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="OfficeAddress"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[OfficeAddress]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, который соединен с данным столбцом."
+                          name="JoinToReferenceColumn">Address</property>
+                        <property
+                          dataType="System.Null"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+                  errorOrTruncationOperation="Уточняющий запрос"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDOffice]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Копировать столбец"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDOffice]"
+                      name="IDOffice"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn">IDOffice</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Выход несовпадающих строк уточняющего запроса]"
+                  description="Вывод преобразования &quot;Уточняющий запрос&quot;, которое обрабатывает строки без совпадающих элементов в эталонном наборе данных. Используйте этот выход, если свойство NoMatchBehavior имеет значение &quot;Отправить строки без совпадающих элементов в выход несовпадающих строк&quot;."
+                  exclusionGroup="1"
+                  name="Выход несовпадающих строк уточняющего запроса"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Уточняющий запрос;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;6"
+              description="Присоединяет дополнительные столбцы к потоку данных путем поиска значений в таблице. Пример: соединение со столбцом &quot;employee id&quot; таблицы employees позволяет получить значения &quot;hire date&quot; и &quot;employee name&quot;. Рекомендуется воспользоваться этим преобразованием, если таблица подстановки не помещается в памяти."
+              name="Extract IDTour"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая формирует таблицу уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[ToursDim]</property>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая использует параметры для формирования таблицы уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[ToursDim]) [refTable]
+where [refTable].[TourType] = ? and [refTable].[Address] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип соединения, используемого для доступа к эталонному набору данных."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип кэша таблицы уточняющих запросов."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает, как преобразование &quot;Уточняющий запрос&quot; обрабатывает строки без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает долю кэша (в процентах), выделенную для строк без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Максимальный объем памяти для кэша ссылок на 32-разрядной платформе."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Максимальный объем памяти для кэша ссылок на 64-разрядной платформе."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает, следует ли ссылаться на метаданные в формате XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="IDTour" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TourType" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="HotelName" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="HotelRating" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Address" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CateringType" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Transfer" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MaxQuantity" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TransportType" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TransportClass" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Задает список идентификаторов журнала обращений и преобразований, сопоставляемый с параметрами, которые использует инструкция SQL в свойстве SQLCommand. Элементы списка разделяются точками с запятой."
+                  name="ParameterMap">#{Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника "Excel"].Columns[TourType]};#{Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника "Excel"].Columns[HotelAddress]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Определяет, должны ли повторяющиеся ключи в ссылочных данных обрабатываться как ошибки при использовании режима полного кэширования."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  description="Диспетчер соединений, используемый для доступа к данным уточняющих запросов."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+                  name="Ввод преобразования &quot;Уточняющий запрос&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;].Columns[TourType]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="TourType"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[TourType]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, который соединен с данным столбцом."
+                          name="JoinToReferenceColumn">TourType</property>
+                        <property
+                          dataType="System.Null"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;].Columns[HotelAddress]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="HotelAddress"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;].Columns[HotelAddress]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, который соединен с данным столбцом."
+                          name="JoinToReferenceColumn">Address</property>
+                        <property
+                          dataType="System.Null"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+                  errorOrTruncationOperation="Уточняющий запрос"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDTour]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Копировать столбец"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;].Columns[IDTour]"
+                      name="IDTour"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn">IDTour</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Выход несовпадающих строк уточняющего запроса]"
+                  description="Вывод преобразования &quot;Уточняющий запрос&quot;, которое обрабатывает строки без совпадающих элементов в эталонном наборе данных. Используйте этот выход, если свойство NoMatchBehavior имеет значение &quot;Отправить строки без совпадающих элементов в выход несовпадающих строк&quot;."
+                  exclusionGroup="1"
+                  name="Выход несовпадающих строк уточняющего запроса"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Add 10 new facts to SalesFct (LookUp).Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+              endId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+              name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+              startId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]" />
+            <path
+              refId="Package\Add 10 new facts to SalesFct (LookUp).Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;1]"
+              endId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+              name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+              startId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]" />
+            <path
+              refId="Package\Add 10 new facts to SalesFct (LookUp).Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;2]"
+              endId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+              name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+              startId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]" />
+            <path
+              refId="Package\Add 10 new facts to SalesFct (LookUp).Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;3]"
+              endId="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct.Inputs[Вход назначения &quot;OLE DB&quot;]"
+              name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+              startId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]" />
+            <path
+              refId="Package\Add 10 new facts to SalesFct (LookUp).Paths[Выход источника &quot;Excel&quot;]"
+              endId="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+              name="Выход источника &quot;Excel&quot;"
+              startId="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts.Outputs[Выход источника &quot;Excel&quot;]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="262,42"
+          Id="Package\Add 10 new facts to SalesFct (LookUp)"
+          TopLeft="25,29" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Add 10 new facts to SalesFct (LookUp)">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="139,42"
+          Id="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts"
+          TopLeft="52,18" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager"
+          TopLeft="99,101" />
+        <EdgeLayout
+          Id="Package\Add 10 new facts to SalesFct (LookUp).Paths[Выход источника &quot;Excel&quot;]"
+          TopLeft="121.5,60">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="61,41"
+              Start="0,0"
+              End="61,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5"
+                    Point2="0,20.5"
+                    Point3="4,20.5" />
+                  <mssgle:LineSegment
+                    End="57,20.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="57,20.5"
+                    Point2="61,20.5"
+                    Point3="61,24.5" />
+                  <mssgle:LineSegment
+                    End="61,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour"
+          TopLeft="174,195" />
+        <EdgeLayout
+          Id="Package\Add 10 new facts to SalesFct (LookUp).Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+          TopLeft="182.5,143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="65.5,52"
+              Start="0,0"
+              End="65.5,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22"
+                    Point2="0,26"
+                    Point3="4,26" />
+                  <mssgle:LineSegment
+                    End="61.5,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="61.5,26"
+                    Point2="65.5,26"
+                    Point3="65.5,30" />
+                  <mssgle:LineSegment
+                    End="65.5,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-101.93986328125,31,269.3797265625,12"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient"
+          TopLeft="242,277" />
+        <EdgeLayout
+          Id="Package\Add 10 new facts to SalesFct (LookUp).Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;1]"
+          TopLeft="248,237">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="70.5,40"
+              Start="0,0"
+              End="70.5,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16"
+                    Point2="0,20"
+                    Point3="4,20" />
+                  <mssgle:LineSegment
+                    End="66.5,20" />
+                  <mssgle:CubicBezierSegment
+                    Point1="66.5,20"
+                    Point2="70.5,20"
+                    Point3="70.5,24" />
+                  <mssgle:LineSegment
+                    End="70.5,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.43986328125,25,269.3797265625,12"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice"
+          TopLeft="322.555555555556,360.888888888889" />
+        <NodeLayout
+          Size="200,42"
+          Id="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct"
+          TopLeft="383,452.333333333333" />
+        <EdgeLayout
+          Id="Package\Add 10 new facts to SalesFct (LookUp).Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;2]"
+          TopLeft="318.5,319">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="81.0555555555556,41.8888888888889"
+              Start="0,0"
+              End="81.0555555555556,34.3888888888889">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.9444444444445" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.9444444444445"
+                    Point2="0,20.9444444444445"
+                    Point3="4,20.9444444444445" />
+                  <mssgle:LineSegment
+                    End="77.0555555555556,20.9444444444445" />
+                  <mssgle:CubicBezierSegment
+                    Point1="77.0555555555556,20.9444444444445"
+                    Point2="81.0555555555556,20.9444444444445"
+                    Point3="81.0555555555556,24.9444444444445" />
+                  <mssgle:LineSegment
+                    End="81.0555555555556,34.3888888888889" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-94.1620855034722,25.9444444444445,269.3797265625,12"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Add 10 new facts to SalesFct (LookUp).Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;3]"
+          TopLeft="399.555555555556,402.888888888889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="83.4444444444443,49.4444444444445"
+              Start="0,0"
+              End="83.4444444444443,41.9444444444445">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.7222222222222" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.7222222222222"
+                    Point2="0,24.7222222222222"
+                    Point3="4,24.7222222222222" />
+                  <mssgle:LineSegment
+                    End="79.4444444444443,24.7222222222222" />
+                  <mssgle:CubicBezierSegment
+                    Point1="79.4444444444443,24.7222222222222"
+                    Point2="83.4444444444443,24.7222222222222"
+                    Point3="83.4444444444443,28.7222222222222" />
+                  <mssgle:LineSegment
+                    End="83.4444444444443,41.9444444444445" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-92.9676410590278,29.7222222222222,269.3797265625,12"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Add 10 new facts to SalesFct (LookUp)\10 new facts">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDManager">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[ManagersDim]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDTour">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[ToursDim]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDClient">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[ClientsDim]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Add 10 new facts to SalesFct (LookUp)\Extract IDOffice">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[OfficesDim]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Add 10 new facts to SalesFct (LookUp)\Add new facts to SalesFct">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
