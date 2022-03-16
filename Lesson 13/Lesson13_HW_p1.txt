@@ -1,0 +1,85 @@
+-- Поиск альтернативных ключей
+
+-- 1.000 уникальных записей
+SELECT DISTINCT *
+FROM [TMSGroup2].[dbo].[ManagersDim];
+-- таблица [TMSGroup2].[dbo].[ManagersDim], альт ключ [Email]
+SELECT DISTINCT [Email]
+FROM [TMSGroup2].[dbo].[ManagersDim];
+
+-- 1.099 уникальных записей
+SELECT DISTINCT *
+FROM [TMSGroup2].[dbo].[ToursDim];
+-- таблица [TMSGroup2].[dbo].[ToursDim], альт ключ [TourType] + [Address]
+SELECT DISTINCT [TourType], [Address]
+FROM [TMSGroup2].[dbo].[ToursDim];
+
+-- 100.000 уникальных записей
+SELECT DISTINCT *
+FROM [TMSGroup2].[dbo].[ClientsDim];
+-- таблица [TMSGroup2].[dbo].[ClientsDim], альт ключ [IdentificationNumber]
+SELECT DISTINCT [IdentificationNumber]
+FROM [TMSGroup2].[dbo].[ClientsDim];
+
+-- 49 уникальных записей
+SELECT DISTINCT *
+FROM [TMSGroup2].[dbo].[OfficesDim];
+-- таблица [TMSGroup2].[dbo].[OfficesDim], альт ключ [Address]
+SELECT DISTINCT [Address]
+FROM [TMSGroup2].[dbo].[OfficesDim];
+
+
+
+--	Написать запрос, где заджойнить все дименшены и факт. Все внешние ключи заменить на альтенативные из дименшена (например, product_id на product_name и тд).
+DROP TABLE IF EXISTS [TMSGroup2].[dbo].[SalesFct_TOP10];
+SELECT TOP (10) 
+	[IDSale]
+	,[ContractNumber]
+	,[DataSales]
+-- таблица [TMSGroup2].[dbo].[ManagersDim], альт ключ [Email]
+	,Manager.[Email] AS [ManagerEmail]
+-- таблица [TMSGroup2].[dbo].[ToursDim], альт ключ [TourType] + [Address]
+	,Tour.[TourType]
+	,Tour.[Address] AS [HotelAddress]
+-- таблица [TMSGroup2].[dbo].[ClientsDim], альт ключ [IdentificationNumber]
+	,Client.[IdentificationNumber]
+-- таблица [TMSGroup2].[dbo].[OfficesDim], альт ключ [Address]
+	,Office.[Address] AS [OfficeAddress]
+	,[Costs]
+	,[SellingPrice]
+	,[DiscountRate]
+	,[TourCapacity]
+	,[TourStartDate]
+	,[TourFinishDate]
+INTO [TMSGroup2].[dbo].[SalesFct_TOP10]
+	FROM [TMSGroup2].[dbo].[SalesFct] Fct
+	JOIN [TMSGroup2].[dbo].[ManagersDim] Manager
+	ON Fct.[IDManager] = Manager.[IDManager]
+		JOIN [TMSGroup2].[dbo].[ToursDim] Tour
+		ON Fct.[IDTour] = Tour.[IDTour]
+			JOIN [TMSGroup2].[dbo].[ClientsDim] Client
+			ON Fct.[IDClient] = Client.[IDClient]
+				JOIN [TMSGroup2].[dbo].[OfficesDim] Office
+				ON Fct.[IDOffice] = Office.[IDOffice]
+GO
+
+-- Обновление неключевых полей
+UPDATE [TMSGroup2].[dbo].[SalesFct_TOP10]
+SET
+	[ContractNumber] = REVERSE([ContractNumber]),
+	[DataSales] = DATEADD(DAY,CAST(RAND(CHECKSUM(NEWID()))*1826 as int) +0,'2017-01-01'),
+	[Costs] = CAST(RAND(CHECKSUM(NEWID()))*9000 as real) +1000,
+	[DiscountRate] = CAST(RAND(CHECKSUM(NEWID()))*1 as real) +0,
+	[TourCapacity] = CAST(RAND(CHECKSUM(NEWID()))*9 as int) +1;
+GO
+UPDATE [TMSGroup2].[dbo].[SalesFct_TOP10]
+SET
+	[SellingPrice] =  [Costs] * (1 + CAST(RAND(CHECKSUM(NEWID()))*1 as real) +0),
+	[TourStartDate] = DATEADD(DAY,CAST(RAND(CHECKSUM(NEWID()))*365 as int) +0,[DataSales]);
+GO
+UPDATE [TMSGroup2].[dbo].[SalesFct_TOP10]
+SET
+	[TourFinishDate] = DATEADD(DAY,CAST(RAND(CHECKSUM(NEWID()))*30 as int) +3,[TourStartDate]);
+GO
+SELECT *
+FROM [TMSGroup2].[dbo].[SalesFct_TOP10]
