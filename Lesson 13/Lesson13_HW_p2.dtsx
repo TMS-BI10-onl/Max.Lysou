@@ -1,0 +1,797 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/16/2022 9:46:32 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-N6J6DE8"
+  DTS:CreatorName="DESKTOP-N6J6DE8\maxly"
+  DTS:DTSID="{498FAE73-D212-4B02-A92F-EB6A860CFC18}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="8192"
+  DTS:ObjectName="Lesson13_HW_p1_2"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{50000B3D-4F77-4914-A026-173D957AC4F2}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{75318B35-18CC-4C93-8B89-7547A92279A6}"
+      DTS:ObjectName="DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-N6J6DE8\SQLEXPRESS;Initial Catalog=TMSGroup2;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{F695AEE1-17D0-4DDF-B255-1EE6162A0F82}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=F:\additional\SSIS\Lesson13_HW_p1_2.xls;Extended Properties=&quot;Excel 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Extract 10 new facts to excel"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{C15C8A38-2244-4960-A776-86F80010D1C8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Extract 10 new facts to excel"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls"
+              componentClassID="Microsoft.ExcelDestination"
+              contactInfo="Назначение &quot;Excel&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;0"
+              description="Назначение &quot;Excel&quot;"
+              name="Lesson13_HW_p1_2 xls"
+              usesDispositions="true">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">Лист1$</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, должны ли значения в столбцах идентификаторов копироваться в назначение. Если свойство имеет значение false, значения в столбцах идентификаторов будут созданы автоматически в месте назначения. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, будут ли в назначение вставляться значения NULL для столбцов, содержащих их. Значение false показывает, что если столбец имеет значение NULL, то в назначение будет вставлено его значение по умолчанию. Применяется только в случае, если включена быстрая загрузка."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Задает параметры быстрой загрузки. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Задает, когда выдаются сообщения о фиксации транзакции в ходе вставки данных. Значение 0 задает, что по окончании вставки данных будет выдано одно сообщение о фиксации транзакции. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;]"
+                  errorOrTruncationOperation="Вставить"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения &quot;Excel&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[ContractNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="ContractNumber"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[ContractNumber]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[ContractNumber]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[DataSales]"
+                      cachedDataType="dbDate"
+                      cachedName="DataSales"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[DataSales]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[DataSales]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[ManagerEmail]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="ManagerEmail"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[ManagerEmail]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[ManagerEmail]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[TourType]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="TourType"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[TourType]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourType]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[HotelAddress]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="HotelAddress"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[HotelAddress]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[HotelAddress]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[IdentificationNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="IdentificationNumber"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[IdentificationNumber]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[IdentificationNumber]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[OfficeAddress]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="OfficeAddress"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[OfficeAddress]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[OfficeAddress]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[Costs]"
+                      cachedDataType="cy"
+                      cachedName="Costs"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[Costs]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Costs]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[SellingPrice]"
+                      cachedDataType="cy"
+                      cachedName="SellingPrice"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[SellingPrice]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SellingPrice]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[DiscountRate]"
+                      cachedDataType="cy"
+                      cachedName="DiscountRate"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[DiscountRate]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[DiscountRate]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[TourCapacity]"
+                      cachedDataType="i4"
+                      cachedName="TourCapacity"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[TourCapacity]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourCapacity]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[TourStartDate]"
+                      cachedDataType="dbDate"
+                      cachedName="TourStartDate"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[TourStartDate]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourStartDate]" />
+                    <inputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].Columns[TourFinishDate]"
+                      cachedDataType="dbDate"
+                      cachedName="TourFinishDate"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[TourFinishDate]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourFinishDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[ContractNumber]"
+                      dataType="wstr"
+                      length="255"
+                      name="ContractNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[DataSales]"
+                      dataType="wstr"
+                      length="255"
+                      name="DataSales" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[ManagerEmail]"
+                      dataType="wstr"
+                      length="255"
+                      name="ManagerEmail" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[TourType]"
+                      dataType="wstr"
+                      length="255"
+                      name="TourType" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[HotelAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="HotelAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[IdentificationNumber]"
+                      dataType="wstr"
+                      length="255"
+                      name="IdentificationNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[OfficeAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="OfficeAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[Costs]"
+                      dataType="wstr"
+                      length="255"
+                      name="Costs" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[SellingPrice]"
+                      dataType="wstr"
+                      length="255"
+                      name="SellingPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[DiscountRate]"
+                      dataType="wstr"
+                      length="255"
+                      name="DiscountRate" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[TourCapacity]"
+                      dataType="wstr"
+                      length="255"
+                      name="TourCapacity" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[TourStartDate]"
+                      dataType="wstr"
+                      length="255"
+                      name="TourStartDate" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;].ExternalColumns[TourFinishDate]"
+                      dataType="wstr"
+                      length="255"
+                      name="TourFinishDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Outputs[Вывод ошибок назначения &quot;Excel&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения &quot;Excel&quot;"
+                  synchronousInputId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Outputs[Вывод ошибок назначения &quot;Excel&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Outputs[Вывод ошибок назначения &quot;Excel&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Outputs[Вывод ошибок назначения &quot;Excel&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Outputs[Вывод ошибок назначения &quot;Excel&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract 10 new facts to excel\SalesFct_TOP10"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Источник &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;7"
+              description="Источник &quot;OLE DB&quot;"
+              name="SalesFct_TOP10"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">[dbo].[SalesFct_TOP10]</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT TOP (10) 
+	[IDSale]
+	,[ContractNumber]
+	,[DataSales]
+-- таблица [TMSGroup2].[dbo].[ManagersDim]
+	,Manager.[Email] AS [ManagerEmail]
+-- таблица [TMSGroup2].[dbo].[ToursDim]
+	,Tour.[TourType]
+	,Tour.[Address] AS [HotelAddress]
+-- таблица [TMSGroup2].[dbo].[ClientsDim]
+	,Client.[IdentificationNumber]
+-- таблица [TMSGroup2].[dbo].[OfficesDim]
+	,Office.[Address] AS [OfficeAddress]
+	,[Costs]
+	,[SellingPrice]
+	,[DiscountRate]
+	,[TourCapacity]
+	,[TourStartDate]
+	,[TourFinishDate]
+	FROM [TMSGroup2].[dbo].[SalesFct] Fct
+	JOIN [TMSGroup2].[dbo].[ManagersDim] Manager
+	ON Fct.[IDManager] = Manager.[IDManager]
+		JOIN [TMSGroup2].[dbo].[ToursDim] Tour
+		ON Fct.[IDTour] = Tour.[IDTour]
+			JOIN [TMSGroup2].[dbo].[ClientsDim] Client
+			ON Fct.[IDClient] = Client.[IDClient]
+				JOIN [TMSGroup2].[dbo].[OfficesDim] Office
+				ON Fct.[IDOffice] = Office.[IDOffice]</property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставления между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N6J6DE8\SQLEXPRESS.TMSGroup2]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;]"
+                  name="Выход источника &quot;OLE DB&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[IDSale]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[IDSale]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[IDSale]"
+                      name="IDSale"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[ContractNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[ContractNumber]"
+                      length="30"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[ContractNumber]"
+                      name="ContractNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[DataSales]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[DataSales]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[DataSales]"
+                      name="DataSales"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[ManagerEmail]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[ManagerEmail]"
+                      length="50"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[ManagerEmail]"
+                      name="ManagerEmail"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[TourType]"
+                      length="50"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourType]"
+                      name="TourType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[HotelAddress]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[HotelAddress]"
+                      length="50"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[HotelAddress]"
+                      name="HotelAddress"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[IdentificationNumber]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[IdentificationNumber]"
+                      length="30"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[IdentificationNumber]"
+                      name="IdentificationNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[OfficeAddress]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[OfficeAddress]"
+                      length="50"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[OfficeAddress]"
+                      name="OfficeAddress"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Costs]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Costs]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Costs]"
+                      name="Costs"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SellingPrice]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SellingPrice]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SellingPrice]"
+                      name="SellingPrice"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[DiscountRate]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[DiscountRate]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[DiscountRate]"
+                      name="DiscountRate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourCapacity]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[TourCapacity]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourCapacity]"
+                      name="TourCapacity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourStartDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[TourStartDate]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourStartDate]"
+                      name="TourStartDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourFinishDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[TourFinishDate]"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].Columns[TourFinishDate]"
+                      name="TourFinishDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[IDSale]"
+                      dataType="i4"
+                      name="IDSale" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[ContractNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="ContractNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[DataSales]"
+                      dataType="dbDate"
+                      name="DataSales" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[ManagerEmail]"
+                      dataType="wstr"
+                      length="50"
+                      name="ManagerEmail" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[TourType]"
+                      dataType="wstr"
+                      length="50"
+                      name="TourType" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[HotelAddress]"
+                      dataType="wstr"
+                      length="50"
+                      name="HotelAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[IdentificationNumber]"
+                      dataType="wstr"
+                      length="30"
+                      name="IdentificationNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[OfficeAddress]"
+                      dataType="wstr"
+                      length="50"
+                      name="OfficeAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Costs]"
+                      dataType="cy"
+                      name="Costs" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SellingPrice]"
+                      dataType="cy"
+                      name="SellingPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[DiscountRate]"
+                      dataType="cy"
+                      name="DiscountRate" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[TourCapacity]"
+                      dataType="i4"
+                      name="TourCapacity" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[TourStartDate]"
+                      dataType="dbDate"
+                      name="TourStartDate" />
+                    <externalMetadataColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[TourFinishDate]"
+                      dataType="dbDate"
+                      name="TourFinishDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;OLE DB&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[IDSale]"
+                      dataType="i4"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[IDSale]"
+                      name="IDSale" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ContractNumber]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ContractNumber]"
+                      name="ContractNumber" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[DataSales]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[DataSales]"
+                      name="DataSales" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ManagerEmail]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ManagerEmail]"
+                      name="ManagerEmail" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[TourType]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[TourType]"
+                      name="TourType" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[HotelAddress]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[HotelAddress]"
+                      name="HotelAddress" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[IdentificationNumber]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[IdentificationNumber]"
+                      name="IdentificationNumber" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[OfficeAddress]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[OfficeAddress]"
+                      name="OfficeAddress" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Costs]"
+                      dataType="cy"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Costs]"
+                      name="Costs" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SellingPrice]"
+                      dataType="cy"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SellingPrice]"
+                      name="SellingPrice" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[DiscountRate]"
+                      dataType="cy"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[DiscountRate]"
+                      name="DiscountRate" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[TourCapacity]"
+                      dataType="i4"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[TourCapacity]"
+                      name="TourCapacity" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[TourStartDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[TourStartDate]"
+                      name="TourStartDate" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[TourFinishDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[TourFinishDate]"
+                      name="TourFinishDate" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Extract 10 new facts to excel.Paths[Выход источника &quot;OLE DB&quot;]"
+              endId="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls.Inputs[Вход назначения &quot;Excel&quot;]"
+              name="Выход источника &quot;OLE DB&quot;"
+              startId="Package\Extract 10 new facts to excel\SalesFct_TOP10.Outputs[Выход источника &quot;OLE DB&quot;]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="215,42"
+          Id="Package\Extract 10 new facts to excel"
+          TopLeft="51,35" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Extract 10 new facts to excel">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Extract 10 new facts to excel\SalesFct_TOP10"
+          TopLeft="48,23" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls"
+          TopLeft="52,129" />
+        <EdgeLayout
+          Id="Package\Extract 10 new facts to excel.Paths[Выход источника &quot;OLE DB&quot;]"
+          TopLeft="125.5,65">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="21.5,64"
+              Start="0,0"
+              End="21.5,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28"
+                    Point2="0,32"
+                    Point3="4,32" />
+                  <mssgle:LineSegment
+                    End="17.5,32" />
+                  <mssgle:CubicBezierSegment
+                    Point1="17.5,32"
+                    Point2="21.5,32"
+                    Point3="21.5,36" />
+                  <mssgle:LineSegment
+                    End="21.5,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract 10 new facts to excel\SalesFct_TOP10">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Extract 10 new facts to excel\Lesson13_HW_p1_2 xls">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
