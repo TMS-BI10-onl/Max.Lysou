@@ -1,0 +1,120 @@
+/*
+	1. Найти ProductSubcategoryID из Production.Product, где мин вес такого ProductSubcategoryID больше 150. 
+*/
+
+SELECT
+	[ProductSubcategoryID],
+	MIN([Weight]) AS [MIN_WEIGHT],
+	MAX([Weight]) AS [MAX_WEIGHT]
+FROM [AdventureWorks2017].[Production].[Product]
+GROUP BY [ProductSubcategoryID]
+HAVING MIN([Weight]) > 150;
+
+
+/*
+	2. Найти самый дорогой продукт (поле StandardCost) из Production.Product. (4 способа)
+*/
+
+-- способ 1 - TOP 1 WITH TIES
+SELECT TOP 1 WITH TIES
+	[ProductID],
+	[Name],
+	[StandardCost]
+FROM [AdventureWorks2017].[Production].[Product]
+ORDER BY [StandardCost] DESC;
+
+-- способ 2 - RANK
+SELECT
+	[ProductID],
+	[Name],
+	[StandardCost]
+FROM (
+	SELECT *,
+		RANK() OVER(ORDER BY [StandardCost] DESC) AS [Rnk]
+	FROM [AdventureWorks2017].[Production].[Product]) T
+WHERE [Rnk] = 1;
+
+-- способ 3 - подзапрос в WHERE 
+SELECT
+	[ProductID],
+	[Name],
+	[StandardCost]
+FROM [AdventureWorks2017].[Production].[Product]
+WHERE [StandardCost] = (
+						SELECT
+							MAX([StandardCost]) AS [MaxPrice]
+						FROM [AdventureWorks2017].[Production].[Product]
+						);
+
+-- способ 4 - подзапрос в FROM
+SELECT
+	[ProductID],
+	[Name],
+	[StandardCost]
+FROM 
+	(SELECT *,
+		MAX([StandardCost]) OVER() AS [MaxPrice]
+		FROM [AdventureWorks2017].[Production].[Product]
+	) T
+WHERE [StandardCost] = [MaxPrice];
+
+/*
+	3. Найти страны, в которые за последний год не было куплено ни одного тура. (схема GROUP2)
+*/
+
+SELECT DISTINCT [Country]
+FROM [ToursDim]
+WHERE [Country] NOT IN (
+		SELECT DISTINCT Tours.[Country]
+		FROM [ToursDim] Tours
+			LEFT JOIN [SalesFct] Sales
+			ON Tours.[IDTour] = Sales.[IDTour] 
+		WHERE 
+			Sales.[DataSales] > DATEADD(year,-1,GETDATE())
+		);
+
+/*
+	4. Найти для каждого менеджера кол-во продаж за последние 15 лет.  (схема GROUP2)
+*/
+
+SELECT
+	Managers.[IDManager],
+	Managers.[FirstName],
+	Managers.[LastName],
+	COUNT(1) AS [TotalSales]
+FROM [ManagersDim] Managers
+	LEFT JOIN [SalesFct] Sales
+	ON Managers.[IDManager] = Sales.[IDManager]
+WHERE 
+	Sales.[DataSales] > DATEADD(year,-15,GETDATE())
+GROUP BY
+	Managers.[IDManager], Managers.[FirstName], Managers.[LastName];
+
+
+/*
+5. 
+Users (
+    id bigint NOT NULL,
+    email varchar(255) NOT NULL
+);
+
+Notifications (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    category varchar(100),
+    is_read boolean DEFAULT false
+);
+
+Найти список категорий для пользователя alex@gmail.com, в которых более 50 непрочитанных нотификаций
+*/
+
+SELECT
+	Notifications.[category],
+	COUNT(1) AS [NumOfUnread]
+FROM [Users] Users
+	LEFT JOIN [Notifications] Notifications
+	ON Users.[id] = Notifications.[user_id] 
+WHERE 
+	Users.[email] = N'alex@gmail.com' AND Notifications.[is_read] IS FALSE
+GROUP BY Notifications.[category]
+HAVING COUNT(1) > 50;
