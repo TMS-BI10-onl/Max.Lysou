@@ -1,0 +1,101 @@
+-- 1 Покажите всех менеджеров, которые имеют в подчинении больше 6-ти сотрудников.
+SELECT
+	M.MANAGER_ID,
+	E.FIRST_NAME,
+	E.LAST_NAME,
+	M.CNT_EMPLOYEES
+FROM EMPLOYEES E
+	RIGHT JOIN
+		(SELECT
+			MANAGER_ID,
+			COUNT(1) AS CNT_EMPLOYEES
+		FROM EMPLOYEES
+		--допущение: менеджер не считается сам у себя в подчинении
+		WHERE EMPLOYEE_ID != MANAGER_ID
+		GROUP BY MANAGER_ID
+		HAVING COUNT(1) > 6) M
+	ON E.EMPLOYEE_ID = M.MANAGER_ID;
+
+
+-- 2 Вывести min и max зарплату с вычетом commission_pct для каждого департамента. (commission_pct на базе указывается в процентах). 
+SELECT
+	E.DEPARTMENT_ID,
+	D.DEPARTMENT_NAME,
+	E.MIN_SALARY_WO_COMM,
+	E.MAX_SALARY_WO_COMM
+FROM DEPARTMENTS D
+	RIGHT JOIN
+		(SELECT
+			DEPARTMENT_ID,
+			MIN(SALARY*(1-COMMISSION_PCT)) AS MIN_SALARY_WO_COMM,
+			MAX(SALARY*(1-COMMISSION_PCT)) AS MAX_SALARY_WO_COMM
+		FROM EMPLOYEES
+		GROUP BY DEPARTMENT_ID) E
+	ON D.DEPARTMENT_ID = E.DEPARTMENT_ID;
+
+
+-- 3 Вывести только регион, где работают больше всего людей.
+SELECT TOP 1 WITH TIES
+	R.REGION_ID,
+	R.REGION_NAME,
+	COUNT(1) AS CNT_EMPLOYEES
+FROM REGIONS R
+	RIGHT JOIN COUNTRIES C
+	ON R.REGION_ID = C.REGION_ID
+		RIGHT JOIN LOCATIONS L
+		ON C.COUNTRY_ID = L.COUNTRY_ID
+			RIGHT JOIN DEPARTMENTS D
+			ON L.LOCATION_ID = D.LOCATION_ID
+				RIGHT JOIN EMPLOYEES E
+				ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
+GROUP BY R.REGION_ID, R.REGION_NAME
+ORDER BY COUNT(1) DESC;
+
+
+-- 4 Найдите разницу в процентах между средней зп по каждому департаменту от общей средней (по всем департаментам).
+SELECT
+	E.DEPARTMENT_ID,
+	D.DEPARTMENT_NAME,
+	E.AVG_SALARY_DEP,
+	E.AVG_SALARY,
+	(CAST(E.AVG_SALARY_DEP AS DEC(20,4)) / E.AVG_SALARY - 1) * 100 AS DIFF_SALARY
+FROM DEPARTMENTS D
+	RIGHT JOIN 
+		(SELECT DISTINCT
+			DEPARTMENT_ID,
+			AVG(SALARY) OVER(PARTITION BY DEPARTMENT_ID) AS AVG_SALARY_DEP,
+			AVG(SALARY) OVER() AS AVG_SALARY
+		FROM EMPLOYEES) E
+	ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
+
+
+-- 5 Найдите людей, кто проработал больше, чем 10 лет в одном департаменте. 
+SELECT DISTINCT
+	J.EMPLOYEE_ID,
+	E.FIRST_NAME,
+	E.LAST_NAME
+-- если интересны департаменты, в которых сотрудник работал более 10 лет, тогда необходимо вывести J.DEPARTMENT_ID, но тогда для одного сотрудника может быть более одной записи
+FROM EMPLOYEES E
+-- таблица EMPLOYEES не содержит уволенных сотрудников, поэтому был выбран RIGHT JOIN чтобы не потерять информацию по уволенным / нн работающим сотрудникам из таблицы JOB_HISTORY
+	RIGHT JOIN 
+		(SELECT
+			EMPLOYEE_ID,
+			DEPARTMENT_ID,
+			SUM(DATEDIFF(DAY,START_DATE,ISNULL(END_DATE,GETDATE())))/365 AS SENIORITY
+		FROM JOB_HISTORY
+		GROUP BY EMPLOYEE_ID, DEPARTMENT_ID) J
+	ON E.EMPLOYEE_ID = J.EMPLOYEE_ID
+WHERE J.SENIORITY >= 10;
+
+
+-- 6 Найдите людей, кто занимает 5-10 место по размеру зарплаты. 
+SELECT *
+FROM
+	(SELECT
+		EMPLOYEE_ID,
+		FIRST_NAME,
+		LAST_NAME,
+		SALARY,
+		RANK() OVER(ORDER BY SALARY DESC) AS SALARY_RNK
+	FROM EMPLOYEES) T
+WHERE SALARY_RNK BETWEEN 5 AND 10;
