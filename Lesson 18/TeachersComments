@@ -1,0 +1,19 @@
+Well done!
+
+1.-0.5
+Can be solved in one query.
+
+2. -0.5
+SAME - one query.
+
+4. -0.5
+Can be solved easier - with window functions.
+
+Mark: 9
+
+Test notes:
+KPI font is not the same.
+Count of movies - What is a better filter for last 25 years: create a filter by release_date (not release date year), select relative date filtering and then type "in the last 25 years".
+Also, it was mentioned that it needed to be one page with 2 views.
+
+Test mark: 9
