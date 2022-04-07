@@ -1,0 +1,103 @@
+-- Task 1
+
+Answer: Вариант 2
+
+
+Task 2
+
+Answer: вернет к состоянию до удаления таблицы
+
+
+-- Task 3
+
+Answer: 
+1		1
+2		2
+
+
+--Task 4
+
+Answer: 
+1		1
+2		2
+4		NULL
+NULL	NULL
+NULL	NULL
+
+
+--Task 5 (первый)
+SELECT AVG(TotalPayment)
+FROM Orders
+
+Answer: 120
+
+
+-- Task 5 (второй)
+Запрос №1:
+SELECT COUNT(*) AS Cnt
+FROM Table_1
+
+Answer: Количество непустых строк (не равны NULL)
+
+Запрос №2:
+SELECT COUNT(DISTINCT Col_1) AS Cnt
+FROM Table_1
+
+Answer: Количество уникальный (без повторений) непустых строк (не равны NULL)
+
+
+-- Task 6
+Какой тип отношения между таблицами «Покупатели» и «Заказы»?
+
+Answer: Один ко многим
+
+
+-- Task 7
+Какой тип отношения между таблицами «Товары» и «Заказы»?
+
+Answer: Таблицы никак не связаны (если ключа между таблицами нет в и т.д. и т.п.)
+
+
+-- Task 8
+В какой нормальной форме находится база данных?
+
+Answer: БД во второй нормальной форме
+
+
+-- Task 9
+Какие строки вернет запрос c LIKE?
+SELECT *
+FROM Table_1
+WHERE id like '%A_'
+
+Answer: никаких (потому что по id)
+
+
+-- Task 10
+Что будет результатом для следующего скрипта?
+SELECT * FROM runners 
+WHERE id NOT IN (SELECT winner_id FROM races)
+
+Answer: 
+id	name
+
+Ничего не вернет из-за NULL
+
+
+-- Task 11
+Напишите скрипт для нахождения суммы всех положительных значений из колонки x или значений, кратных 5.
+
+Answer:
+select sum(x) as sum
+from
+(select -2 as x
+union all
+select 2 as x
+union all
+select -5 as x
+union all
+select 0 as x
+union all
+select 1 as x
+) t
+where x > 0 OR x % 5 = 0;
